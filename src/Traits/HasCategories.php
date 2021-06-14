@@ -39,8 +39,8 @@ trait HasCategories
         $categories = is_array($categories) ? $categories : [$categories];
 
         return array_map(function ($category) {
-            if ($categry instanceof Category) {
-                return $categry;
+            if ($category instanceof Category) {
+                return $category;
             }
 
             return $this->getCategoryClass()->findByName($category);
@@ -49,6 +49,8 @@ trait HasCategories
 
     protected function getCategoryClass()
     {
-        return config('nova-blog.models.category');
+        $class = config('nova-blog.models.category');
+
+        return new $class;
     }
 }

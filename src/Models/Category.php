@@ -14,7 +14,7 @@ class Category extends Model
         return $category;
     }
 
-    public static function getCategories(array $params = []): Collection
+    public static function getCategories(array $params = [])
     {
         foreach ($params as $attr => $value) {
             $categories = static::query()->where($attr, $value);

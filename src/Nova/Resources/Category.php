@@ -3,6 +3,9 @@
 namespace Nickfairchild\NovaBlog\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Slug;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 
 class Category extends Resource
@@ -19,7 +22,7 @@ class Category extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -27,7 +30,7 @@ class Category extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'title',
+        'id', 'name',
     ];
 
     /**
@@ -38,7 +41,13 @@ class Category extends Resource
      */
     public function fields(Request $request)
     {
+        return [
+            ID::make()->sortable(),
 
+            Text::make('Name')->sortable(),
+
+            Slug::make('Slug')->from('Name'),
+        ];
     }
 
     /**

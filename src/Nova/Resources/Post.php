@@ -3,6 +3,11 @@
 namespace Nickfairchild\NovaBlog\Nova\Resources;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Slug;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Resource;
 
 class Post extends Resource
@@ -38,7 +43,17 @@ class Post extends Resource
      */
     public function fields(Request $request)
     {
+        return [
+            ID::make()->sortable(),
 
+            Text::make('Title')->rules('required'),
+
+            Slug::make('Slug')->from('Title'),
+
+            Image::make('Featured Image'),
+
+            MorphToMany::make('Categories'),
+        ];
     }
 
     /**
